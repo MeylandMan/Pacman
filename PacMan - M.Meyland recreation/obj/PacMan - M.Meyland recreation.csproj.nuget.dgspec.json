@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Documents\\GitHub\\PacMan-M.Meyland-version\\Pac Man Game\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {}
+    "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Documents\\GitHub\\PacMan-M.Meyland-version\\Pac Man Game\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {
+    "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\PacMan-M.Meyland-version\\Pac Man Game\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
+        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
         "projectName": "PacMan - M.Meyland recreation",
-        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\PacMan-M.Meyland-version\\Pac Man Game\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
+        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\PacMan-M.Meyland-version\\Pac Man Game\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation\\obj\\",
+        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "OpenTK": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
