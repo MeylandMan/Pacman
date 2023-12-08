@@ -28,7 +28,11 @@ public class Program
         nws.Title = "PacMan - recreation made by M.Meyland";
 
         GameWindow window = new GameWindow(gws, nws);
-        window.UpdateFrame += () =
+
+        //This function is running every frames
+        window.UpdateFrame += () => (
+            //Nothing for now
+        );
         window.Run();
 
     }
