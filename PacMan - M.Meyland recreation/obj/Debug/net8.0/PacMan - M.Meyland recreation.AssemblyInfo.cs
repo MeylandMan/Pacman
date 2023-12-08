@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PacMan - M.Meyland recreation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c1d601a46a1629f7f50fb856dde4043e2a11cd2")]
 [assembly: System.Reflection.AssemblyProductAttribute("PacMan - M.Meyland recreation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PacMan - M.Meyland recreation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
