@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {}
+    "C:\\Users\\Meyland\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {
+    "C:\\Users\\Meyland\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
+        "projectUniqueName": "C:\\Users\\Meyland\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
         "projectName": "PacMan - M.Meyland recreation",
-        "projectPath": "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\obj\\",
+        "projectPath": "C:\\Users\\Meyland\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\PacMan - M.Meyland recreation.csproj",
+        "packagesPath": "C:\\Users\\Meyland\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Meyland\\Documents\\GitHub\\Pacman\\PacMan - M.Meyland recreation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Meyland\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

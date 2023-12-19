@@ -30,3 +30,12 @@ C:\Users\HP\Documents\GitHub\Pacman\PacMan - M.Meyland recreation\obj\Debug\net8
 C:\Users\HP\Documents\GitHub\Pacman\PacMan - M.Meyland recreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.pdb
 C:\Users\HP\Documents\GitHub\Pacman\PacMan - M.Meyland recreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.genruntimeconfig.cache
 C:\Users\HP\Documents\GitHub\Pacman\PacMan - M.Meyland recreation\obj\Debug\net8.0\ref\PacMan - M.Meyland recreation.dll
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.csproj.AssemblyReference.cache
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.AssemblyInfoInputs.cache
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.AssemblyInfo.cs
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.csproj.CoreCompileInputs.cache
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.sourcelink.json
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.dll
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\refint\PacMan - M.Meyland recreation.dll
+C:\Users\Meyland\Documents\GitHub\Pacman\PacManRecreation\obj\Debug\net8.0\PacMan - M.Meyland recreation.pdb
