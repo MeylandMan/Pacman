@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PacMan")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce7af7ffdc065a9ae7a51e5b133fc462f15c7a8d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e81f2fea66b5058cdc1dc61eec6dfa3cdd2abf1")]
 [assembly: System.Reflection.AssemblyProductAttribute("PacMan")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PacMan")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,6 +10,8 @@ namespace PacMan.Main;
 
 internal class Game : GameWindow
 {
+    //Frame Per second
+    public float TargetUpdateFrequency = 30f, TargetRenderFrequency = 30f;
 
     float[] vertices = {
         0f, 1f, 0f, //Top Vertex
@@ -18,7 +20,7 @@ internal class Game : GameWindow
     };
 
     //Render Pipeline variables
-    int vao, shaderProgram;
+    int vao, shaderProgram, window_scale = 1;
 
     int w, h;//width and height
     public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
@@ -26,11 +28,19 @@ internal class Game : GameWindow
         Console.WriteLine("Initializing the Game Window...");
 
         //Centering this on monitor
-        w = Consts.SCREEN_WIDTH;
-        h = Consts.SCREEN_HEIGHT;
+        w = Consts.SCREEN_WIDTH * window_scale;
+        h = Consts.SCREEN_HEIGHT * window_scale;
         CenterWindow(new Vector2i(w, h));
         GameConsole.WriteLine("Resizing Window : " + Consts.SCREEN_WIDTH + ", " + Consts.SCREEN_HEIGHT);
+        //not allowing the player to cgange the size of the Window by their own
+        WindowBorder =  WindowBorder.Fixed;
 
+        //The Aspect Ratio gonna always be 4:3
+        AspectRatio = (4, 3);
+
+        //Title of the Game
+        Title = "PacMan - Recreation by M.Meyland";
+        
     }
 
     protected override void OnResize(ResizeEventArgs e)
@@ -48,17 +58,17 @@ internal class Game : GameWindow
 
         vao = GL.GenVertexArray();
 
-        int vbo = GL.GenBuffer();
+        int vbo = GL.GenBuffer(), slot = 0;
         GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
         GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
 
         // Bind the vao
         GL.BindVertexArray(vao);
-        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 0, 0);
-        GL.EnableVertexArrayAttrib(vao, 0);
+        GL.VertexAttribPointer(slot, vertices.Length, VertexAttribPointerType.Float, false, 0, 0);
+        GL.EnableVertexArrayAttrib(vao, slot);
 
-        GL.BindBuffer(BufferTarget.ArrayBuffer, 0); //Unbinding the vbo
-        GL.BindVertexArray(0); // Unbinnding the vao
+        GL.BindBuffer(BufferTarget.ArrayBuffer, slot); //Unbinding the vbo
+        GL.BindVertexArray(slot); // Unbinnding the vao
 
         //Create the shader program
         shaderProgram = GL.CreateProgram();

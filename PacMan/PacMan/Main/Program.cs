@@ -3,7 +3,6 @@
 namespace PacMan.Main;
 class Program
 {
-
     static void Main(string[] args)
     {
 
