@@ -11,12 +11,12 @@ namespace PacMan.Main;
 internal class Game : GameWindow
 {
     //Frame Per second
-    public float TargetUpdateFrequency = 30f, TargetRenderFrequency = 30f;
+    public double TargetUpdateFrequency = 30.0, TargetRenderFrequency = 30.0;
 
     float[] vertices = {
-        0f, 1f, 0f, //Top Vertex
-        -1f, -1f, 0f, //Bottom left Vertex
-        1f, -1f, 0f // Bottom right Vertex
+        0f, 0.5f, 0f, //Top Vertex
+        -0.5f, -0.5f, 0f, //Bottom left Vertex
+        0.5f, -0.5f, 0f // Bottom right Vertex
     };
 
     //Render Pipeline variables
@@ -64,11 +64,12 @@ internal class Game : GameWindow
 
         // Bind the vao
         GL.BindVertexArray(vao);
-        GL.VertexAttribPointer(slot, vertices.Length, VertexAttribPointerType.Float, false, 0, 0);
-        GL.EnableVertexArrayAttrib(vao, slot);
+        GL.VertexAttribPointer(slot, 3, VertexAttribPointerType.Float, false, 0, 0);
+        GL.EnableVertexAttribArray(slot);
+        // GL.EnableVertexArrayAttrib(vao, slot);
 
-        GL.BindBuffer(BufferTarget.ArrayBuffer, slot); //Unbinding the vbo
-        GL.BindVertexArray(slot); // Unbinnding the vao
+        // GL.BindBuffer(BufferTarget.ArrayBuffer, slot); //Unbinding the vbo
+        // GL.BindVertexArray(slot); // Unbinnding the vao
 
         //Create the shader program
         shaderProgram = GL.CreateProgram();
@@ -132,7 +133,7 @@ internal class Game : GameWindow
 
         try {
 
-            using(StreamReader reader = new StreamReader("../../../../Shaders/" + filePath)) {
+            using(StreamReader reader = new StreamReader("../../../Shaders/" + filePath)) {
                 shaderSource = reader.ReadToEnd();
             }
         } catch (Exception e){
