@@ -94,3 +94,4 @@ C:\Users\Meyland\Documents\GitHub\PacmanProject\PacMan\PacMan\obj\Debug\net8.0\r
 C:\Users\Meyland\Documents\GitHub\PacmanProject\PacMan\PacMan\obj\Debug\net8.0\PacMan.pdb
 C:\Users\Meyland\Documents\GitHub\PacmanProject\PacMan\PacMan\obj\Debug\net8.0\PacMan.genruntimeconfig.cache
 C:\Users\Meyland\Documents\GitHub\PacmanProject\PacMan\PacMan\obj\Debug\net8.0\ref\PacMan.dll
+C:\Users\Meyland\Documents\GitHub\PacmanProject\PacMan\PacMan\bin\Debug\net8.0\StbImageSharp.dll

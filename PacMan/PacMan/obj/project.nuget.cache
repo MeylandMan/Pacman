@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BZvaV1Wf2cukyxNVARRlabnsefERKW5X/WRX0/IRrjC5pC/jVdQa/9+OaFpBuN1x/EU2zQBuofqFBXx0p3abug==",
+  "dgSpecHash": "BuZLnDmszyUScMiYoxsQJIJTWuMDn0Ki/fBiQg/FIjuLLEWuo2avZj8E9CvbE2RwhWDw0HURohf8S+usOCd5SQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan\\PacMan.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\Meyland\\.nuget\\packages\\opentk.windowing.common\\4.8.2\\opentk.windowing.common.4.8.2.nupkg.sha512",
     "C:\\Users\\Meyland\\.nuget\\packages\\opentk.windowing.desktop\\4.8.2\\opentk.windowing.desktop.4.8.2.nupkg.sha512",
     "C:\\Users\\Meyland\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.8.2\\opentk.windowing.graphicslibraryframework.4.8.2.nupkg.sha512",
+    "C:\\Users\\Meyland\\.nuget\\packages\\stbimagesharp\\2.27.13\\stbimagesharp.2.27.13.nupkg.sha512",
     "C:\\Users\\Meyland\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
   ],
   "logs": []
