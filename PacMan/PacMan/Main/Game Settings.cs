@@ -30,7 +30,7 @@ internal class Game : GameWindow
     };
 
     //Render Pipeline variables
-    int vao, ebo, shaderProgram, window_scale = 1;
+    int vao, ebo, shaderProgram, window_scale = 1, textureID;
 
     int w, h;//width and height
     public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
@@ -105,6 +105,19 @@ internal class Game : GameWindow
         //Delete the shaders
         GL.DeleteShader(VertexShader);
         GL.DeleteShader(FragmentShader);
+
+        // --- TEXTURES ---
+        textureID = GL.GenTexture();
+
+        // Activate the texture in the unit
+        GL.ActiveTexture(TextureUnit.Texture0);
+        GL.BindTexture(TextureTarget.Texture2D, textureID);
+
+        // --- TEXTURES PARAMETERS
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (uint)TextureWrapMode.Repeat);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (uint)TextureWrapMode.Repeat);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (uint)TextureMinFilter.Nearest);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (uint)TextureMagFilter.Nearest);
 
     }
     protected override void OnUnload()
