@@ -73,25 +73,35 @@ internal class Game : GameWindow
 
         vao = GL.GenVertexArray();
 
+        // Bind the vao
+        GL.BindVertexArray(vao);
+
         // ---- Vertices VBO ----
 
         int vbo = GL.GenBuffer(), slot = 0;
         GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
         GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
+        
 
-        // Bind the vao
-        GL.BindVertexArray(vao);
+        // put the vertex vbo in slot 0 of our VAO
         GL.VertexAttribPointer(slot, 3, VertexAttribPointerType.Float, false, 0, 0);
         GL.EnableVertexAttribArray(slot);
-
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
 
         // ---- Texture VBO ----
-        TextureVBO = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ArrayBuffer, TextureVBO);
-        GL.BufferData(BufferTarget.ArrayBuffer, texCoords.Length * sizeof(float), texCoords, BufferUsageHint.StaticDraw);
 
+        TextureVBO = GL.GenBuffer();
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, TextureVBO);
+
+        GL.BufferData(BufferTarget.ArrayBuffer, texCoords.Length * sizeof(float), texCoords, BufferUsageHint.StaticDraw);
+        
+        // put the Texture in slot 1 of our VAO
         GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 0, 0);
         GL.EnableVertexAttribArray(1);
+
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
+
 
         ebo = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
@@ -137,7 +147,7 @@ internal class Game : GameWindow
 
         // Load image
         StbImage.stbi_set_flip_vertically_on_load(1);
-        ImageResult testTexture = ImageResult.FromStream(File.OpenRead("../../../Media/Textures/Pacman/walking/pacman_0.png"), ColorComponents.RedGreenBlueAlpha);
+        ImageResult testTexture = ImageResult.FromStream(File.OpenRead("../../../Media/Textures/DirtTexture.jpg"), ColorComponents.RedGreenBlueAlpha);
 
         GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, testTexture.Width, testTexture.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, testTexture.Data);
 
