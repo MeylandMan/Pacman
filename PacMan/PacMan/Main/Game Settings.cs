@@ -150,6 +150,7 @@ internal class Game : GameWindow
         // Always deleting the stuffs we don't need anymore
         GL.DeleteVertexArray(vao);
         GL.DeleteProgram(shaderProgram);
+        GL.DeleteTexture(textureID);
         GL.DeleteBuffer(ebo);
 
         Debug.Close();
@@ -166,6 +167,8 @@ internal class Game : GameWindow
 
         //Draw our triangle
         GL.UseProgram(shaderProgram);
+
+        GL.BindTexture(TextureTarget.Texture2D, textureID);
 
         GL.BindVertexArray(vao);
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
