@@ -28,10 +28,10 @@ internal class Game : GameWindow
     };
 
     float[] texCoords = {
-        0f, 1f,
-        1f, 1f,
-        1f, 0f,
-        0f, 0f
+        0f, 1f, // Red
+        1f, 1f, // Green
+        0f, 0f, // Black
+        1f, 0f, // Yellow
     };
 
     //Render Pipeline variables
