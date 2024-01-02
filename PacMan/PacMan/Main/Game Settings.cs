@@ -1,10 +1,9 @@
-﻿using System;
-using OpenTK.Mathematics;
+﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.Common;
 using System.Diagnostics;
-using static System.Net.Mime.MediaTypeNames;
+using StbImageSharp;
 
 namespace PacMan.Main;
 
@@ -20,8 +19,7 @@ internal class Game : GameWindow
         0.5f, -0.5f, 0f // Bottom Right Vertex - 3
     };
 
-    uint[] indices =
-    {
+    uint[] indices = {
         //First triangle
         0, 1, 2,
 
@@ -29,8 +27,15 @@ internal class Game : GameWindow
         1, 2, 3
     };
 
+    float[] texCoords = {
+        0f, 1f,
+        1f, 1f,
+        1f, 0f,
+        0f, 0f
+    };
+
     //Render Pipeline variables
-    int vao, ebo, shaderProgram, window_scale = 1, textureID;
+    int vao, ebo, TextureVBO, shaderProgram, window_scale = 1, textureID;
 
     int w, h;//width and height
     public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
@@ -68,6 +73,8 @@ internal class Game : GameWindow
 
         vao = GL.GenVertexArray();
 
+        // ---- Vertices VBO ----
+
         int vbo = GL.GenBuffer(), slot = 0;
         GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
         GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.StaticDraw);
@@ -76,6 +83,15 @@ internal class Game : GameWindow
         GL.BindVertexArray(vao);
         GL.VertexAttribPointer(slot, 3, VertexAttribPointerType.Float, false, 0, 0);
         GL.EnableVertexAttribArray(slot);
+
+
+        // ---- Texture VBO ----
+        TextureVBO = GL.GenBuffer();
+        GL.BindBuffer(BufferTarget.ArrayBuffer, TextureVBO);
+        GL.BufferData(BufferTarget.ArrayBuffer, texCoords.Length * sizeof(float), texCoords, BufferUsageHint.StaticDraw);
+
+        GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, 0, 0);
+        GL.EnableVertexAttribArray(1);
 
         ebo = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
@@ -118,6 +134,15 @@ internal class Game : GameWindow
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (uint)TextureWrapMode.Repeat);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (uint)TextureMinFilter.Nearest);
         GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (uint)TextureMagFilter.Nearest);
+
+        // Load image
+        StbImage.stbi_set_flip_vertically_on_load(1);
+        ImageResult testTexture = ImageResult.FromStream(File.OpenRead("../../../Media/Textures/Pacman/walking/pacman_0.png"), ColorComponents.RedGreenBlueAlpha);
+
+        GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, testTexture.Width, testTexture.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, testTexture.Data);
+
+        //Unbind the texture
+        GL.BindTexture(TextureTarget.Texture2D, 0);
 
     }
     protected override void OnUnload()
