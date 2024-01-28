@@ -115,12 +115,15 @@ internal class Game : GameWindow
         GL.ClearColor(0.6f, 0.3f, 0.75f, 1f);
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
-        /*
-        //Draw our triangle
+        
+        //Draw
         program.BindProgram();
+
+        /*
         vao.BindVAO();
         ibo.BindIBO();
         texture.BindTexture();
+        */
 
         //Transformation matrices
         Matrix4 model = Matrix4.Identity;
@@ -134,8 +137,7 @@ internal class Game : GameWindow
         GL.UniformMatrix4(modelLocation, true, ref model);
         GL.UniformMatrix4(viewLocation, true, ref view);
         GL.UniformMatrix4(projectionlLocation, true, ref projection);
-        */
-
+        
         GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
 
         //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
