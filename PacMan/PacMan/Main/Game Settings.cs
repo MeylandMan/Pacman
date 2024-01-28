@@ -9,14 +9,15 @@ namespace PacMan.Main;
 
 internal class Game : GameWindow
 {
+
     //Frame Per second
     public double TargetUpdateFrequency = 30.0, TargetRenderFrequency = 30.0;
 
     float[] vertices = {
-        -0.5f, 0.5f, 0f, //Top Left Vertex - 0
-        0.5f, 0.5f, 0f, //Top Right Vertex - 1
-        -0.5f, -0.5f, 0f, // Bottom Left Vertex - 2
-        0.5f, -0.5f, 0f // Bottom Right Vertex - 3
+        -0.1f, 0.1f, 0f, //Top Left Vertex - 0
+        0.1f, 0.1f, 0f, //Top Right Vertex - 1
+        -0.1f, -0.1f, 0f, // Bottom Left Vertex - 2
+        0.1f, -0.1f, 0f // Bottom Right Vertex - 3
     };
 
     uint[] indices = {
@@ -37,7 +38,7 @@ internal class Game : GameWindow
     //Render Pipeline variables
     int vao, ebo, TextureVBO, shaderProgram, window_scale = 1, textureID;
 
-    int w, h;//width and height
+    int w, h; //width and height
     public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
     {
         Console.WriteLine("Initializing the Game Window...");
@@ -51,7 +52,7 @@ internal class Game : GameWindow
         WindowBorder = WindowBorder.Fixed;
 
         //The Aspect Ratio gonna always be 4:3
-        AspectRatio = (4, 3);
+        //AspectRatio = (4, 3);
 
         //Title of the Game
         Title = "PacMan - Recreation by M.Meyland";
@@ -171,24 +172,39 @@ internal class Game : GameWindow
     protected override void OnRenderFrame(FrameEventArgs args)
     {
 
-        GL.ClearColor(1f, 1f, 1f, 1f);
+        GL.ClearColor(0.6f, 0.3f, 0.75f, 1f);
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
 
         //Draw our triangle
         GL.UseProgram(shaderProgram);
 
-        GL.BindTexture(TextureTarget.Texture2D, textureID);
-
         GL.BindVertexArray(vao);
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, ebo);
+        GL.BindTexture(TextureTarget.Texture2D, textureID);
+
+        //Transformation matrices
+        Matrix4 model = Matrix4.Identity;
+        Matrix4 view = Matrix4.Identity;
+        Matrix4 projection = Matrix4.CreateOrthographic(Consts.WIDTH_ASPECT, 1f, 1f, -1f);
+
+        int modelLocation = GL.GetUniformLocation(shaderProgram, "model");
+        int viewLocation = GL.GetUniformLocation(shaderProgram, "view");
+        int projectionlLocation = GL.GetUniformLocation(shaderProgram, "projection");
+
+        GL.UniformMatrix4(modelLocation, true, ref model);
+        GL.UniformMatrix4(viewLocation, true, ref view);
+        GL.UniformMatrix4(projectionlLocation, true, ref projection);
+
         GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
-        GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+
+        //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
 
         Context.SwapBuffers();
 
         base.OnRenderFrame(args);
     }
+ 
     protected override void OnUpdateFrame(FrameEventArgs args)
     {
 
