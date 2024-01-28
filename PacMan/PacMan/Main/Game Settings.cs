@@ -52,7 +52,7 @@ internal class Game : GameWindow
         WindowBorder = WindowBorder.Fixed;
 
         //The Aspect Ratio gonna always be 4:3
-        //AspectRatio = (4, 3);
+        AspectRatio = (4, 3);
 
         //Title of the Game
         Title = "PacMan - Recreation by M.Meyland";
