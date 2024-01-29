@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BuZLnDmszyUScMiYoxsQJIJTWuMDn0Ki/fBiQg/FIjuLLEWuo2avZj8E9CvbE2RwhWDw0HURohf8S+usOCd5SQ==",
+  "dgSpecHash": "GgBeDmX+Onoox/WU7AyRXjSimwfyQ5i6rCSzZO2lyTqFu0/k1Qw4VmEeqoAO0L7cT7uoy2PRWwzeGFazTFTV5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan\\PacMan.csproj",
+  "projectFilePath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Meyland\\.nuget\\packages\\opentk\\4.8.2\\opentk.4.8.2.nupkg.sha512",
     "C:\\Users\\Meyland\\.nuget\\packages\\opentk.audio.openal\\4.8.2\\opentk.audio.openal.4.8.2.nupkg.sha512",

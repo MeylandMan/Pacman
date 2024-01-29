@@ -442,11 +442,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan\\PacMan.csproj",
+      "projectUniqueName": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan.csproj",
       "projectName": "PacMan",
-      "projectPath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan\\PacMan.csproj",
+      "projectPath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan.csproj",
       "packagesPath": "C:\\Users\\Meyland\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\PacMan\\obj\\",
+      "outputPath": "C:\\Users\\Meyland\\Documents\\GitHub\\PacmanProject\\PacMan\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Meyland\\AppData\\Roaming\\NuGet\\NuGet.Config",
