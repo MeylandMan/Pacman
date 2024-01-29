@@ -9,6 +9,6 @@ uniform sampler2D texture0;
 void main()
 {
     fragColor = texture(texture0, texCoord);
-    // fragColor = vec4(texCoord, 0.0, 1.0);
+    // fragColor = vec4(texCoord, 0.0, 1.0); //(Showing the Texture mapping)
 }
 

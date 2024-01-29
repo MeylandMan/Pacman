@@ -7,25 +7,7 @@ namespace PacMan.Engine;
 
 internal class Obj
 {
-    public Vector2 position;
-    public Vector2 velocity;
-    public Vector2 rotation;
-    public Vector2 scale;
-    public Mesh mesh;
 
-    public Obj(Vector2 Position, Vector2 Rotation, Vector2 Scale)
-    {
-        this.position = Position;
-        this.rotation = Rotation;
-        this.scale = Scale;
-    }
-
-    public static void LoadObjects(Mesh mesh, float[] vertices, uint[] indices, float[] texCoords, string textureFilePath) {
-        mesh = new(vertices, indices, texCoords, textureFilePath);
-    }
-    public static void DrawObjects(Mesh mesh, ShaderProgram program) { mesh.DrawMesh(program); }
-
-    public static void DeleteObjects(Mesh mesh){ mesh.DeleteMesh(); }
 }
 
 internal class Mesh {
@@ -71,12 +53,32 @@ internal class Mesh {
 
         texture = new(TexturePath);
     }
-    public void DrawMesh(ShaderProgram program)
+    public void DrawMesh(ShaderProgram program, Vector2 position, Vector2 scale, Vector2 rotation)
     {
         program.BindProgram();
         vao.BindVAO();
         ibo.BindIBO();
         texture.BindTexture();
+
+        //Transformation matrices
+        Matrix4 model = Matrix4.Identity;
+        model *= Matrix4.CreateScale(new Vector3(scale.X, scale.Y, 0f));
+        model *= Matrix4.CreateRotationX(MathHelper.DegreesToRadians(rotation.X))*
+                 Matrix4.CreateRotationY(MathHelper.DegreesToRadians(rotation.Y))*
+                 Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(0f));
+        model *= Matrix4.CreateTranslation(position.X, position.Y, 0f);
+
+        Matrix4 view = Matrix4.Identity;
+        Matrix4 projection = Matrix4.CreateOrthographic(Consts.WIDTH_ASPECT, 1f, 1f, -1f);
+
+        int modelLocation = GL.GetUniformLocation(program.ID, "model");
+        int viewLocation = GL.GetUniformLocation(program.ID, "view");
+        int projectionlLocation = GL.GetUniformLocation(program.ID, "projection");
+
+        GL.UniformMatrix4(modelLocation, true, ref model);
+        GL.UniformMatrix4(viewLocation, true, ref view);
+        GL.UniformMatrix4(projectionlLocation, true, ref projection);
+
         GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
     }
     public void DeleteMesh()

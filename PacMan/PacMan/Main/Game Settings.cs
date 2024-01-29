@@ -20,7 +20,12 @@ internal class Game : GameWindow
         -0.1f, -0.1f, 0f, // Bottom Left Vertex - 2
         0.1f, -0.1f, 0f // Bottom Right Vertex - 3
     };
-
+    float[] normals = {
+        -1f, 0f, 0f,
+        1f, 0f, 0f,
+        -1f, 0f, 0f,
+        1f, 0f, 0f,
+    };
     uint[] indices = {
         //First triangle
         0, 1, 2,
@@ -36,12 +41,9 @@ internal class Game : GameWindow
         1f, 0f, // Yellow
     };
 
-    //Render Pipeline variables
-    VAO vao;
-    VBO textureVBO;
+    Mesh mesh1;
+    Mesh mesh2;
 
-    IBO ibo;
-    Texture texture;
     ShaderProgram program;
 
 
@@ -78,30 +80,21 @@ internal class Game : GameWindow
     {
 
         base.OnLoad();
+        mesh1 = new(vertices, indices, texCoords, normals, "DirtTexture.jpg");
+        mesh2 = new(vertices, indices, texCoords, normals, "DirtTexture.jpg");
 
-        /*
-        vao = new VAO();
-        VBO vbo = new VBO(vertices);
-        vao.LinkToVAO(0, 3, vbo);
+        mesh1.setupMesh();
+        mesh2.setupMesh();
 
-        textureVBO = new VBO(texCoords);
-        vao.LinkToVAO(1, 2, textureVBO);
-        textureVBO.UnBindVBO();
-
-        ibo = new IBO(indices);
-        ibo.UnbindIBO();
-        */
         program = new ShaderProgram("Default.vert", "Default.frag");
 
     }
     protected override void OnUnload()
     {
         // Always deleting the stuffs we don't need anymore
-        
-        vao.DeleteVAO();
-        program.DeleteProgram();
-        textureVBO.DeleteVBO();
-        ibo.DeleteIBO();
+
+        mesh1.DeleteMesh();
+        mesh2.DeleteMesh();
 
         Debug.Close();
         GameConsole.WriteLine("Debug ended.");
@@ -117,30 +110,11 @@ internal class Game : GameWindow
 
         
         //Draw
-        program.BindProgram();
+        Vector2 scale = new Vector2(1f, 1f);
+        Vector2 rotation = new Vector2(1f, 0f);
 
-        /*
-        vao.BindVAO();
-        ibo.BindIBO();
-        texture.BindTexture();
-        */
-
-        //Transformation matrices
-        Matrix4 model = Matrix4.Identity;
-        Matrix4 view = Matrix4.Identity;
-        Matrix4 projection = Matrix4.CreateOrthographic(Consts.WIDTH_ASPECT, 1f, 1f, -1f);
-
-        int modelLocation = GL.GetUniformLocation(program.ID, "model");
-        int viewLocation = GL.GetUniformLocation(program.ID, "view");
-        int projectionlLocation = GL.GetUniformLocation(program.ID, "projection");
-
-        GL.UniformMatrix4(modelLocation, true, ref model);
-        GL.UniformMatrix4(viewLocation, true, ref view);
-        GL.UniformMatrix4(projectionlLocation, true, ref projection);
-        
-        GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
-
-        //GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+        mesh1.DrawMesh(program, new Vector2(-0.2f, 0f), scale, rotation);
+        mesh2.DrawMesh(program, new Vector2(0.2f, 0f), scale, rotation);
 
         Context.SwapBuffers();
 
