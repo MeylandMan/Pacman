@@ -41,6 +41,14 @@ internal class Game : GameWindow
         1f, 0f, // Yellow
     };
 
+    float[] Colors =
+    {
+        1f, 1f, 1f, 1f,
+        1f, 1f, 1f, 1f,
+        1f, 1f, 1f, 1f,
+        1f, 1f, 1f, 1f
+    };
+
     Mesh mesh1;
     Mesh mesh2;
 
@@ -48,8 +56,7 @@ internal class Game : GameWindow
 
 
     int w, h, window_scale = 1; //width and height
-    public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default)
-    {
+    public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default) {
         Console.WriteLine("Initializing the Game Window...");
 
         //Centering this on monitor
@@ -57,7 +64,7 @@ internal class Game : GameWindow
         h = Consts.SCREEN_HEIGHT * window_scale;
         CenterWindow(new Vector2i(w, h));
         GameConsole.WriteLine("Resizing Window : " + Consts.SCREEN_WIDTH + ", " + Consts.SCREEN_HEIGHT);
-        //not allowing the player to cgange the size of the Window by their own
+        //not allowing the player to change the size of the Window by their own
         WindowBorder = WindowBorder.Fixed;
 
         //The Aspect Ratio gonna always be 4:3
@@ -68,20 +75,19 @@ internal class Game : GameWindow
 
     }
 
-    protected override void OnResize(ResizeEventArgs e)
-    {
+    protected override void OnResize(ResizeEventArgs e) {
         base.OnResize(e);
         GL.Viewport(0, 0, e.Width, e.Height);
         w = e.Width;
         h = e.Height;
         GameConsole.WriteLine("Window resized : " + w + ", " + h);
     }
-    protected override void OnLoad()
-    {
+    protected override void OnLoad() {
 
         base.OnLoad();
-        mesh1 = new(vertices, indices, texCoords, normals, "DirtTexture.jpg");
-        mesh2 = new(vertices, indices, texCoords, normals, "DirtTexture.jpg");
+
+        mesh1 = new(vertices, indices, texCoords, normals, Colors, "WhiteTexture.jpg");
+        mesh2 = new(vertices, indices, texCoords, normals, Colors, "DirtTexture.jpg");
 
         mesh1.setupMesh();
         mesh2.setupMesh();
@@ -89,8 +95,7 @@ internal class Game : GameWindow
         program = new ShaderProgram("Default.vert", "Default.frag");
 
     }
-    protected override void OnUnload()
-    {
+    protected override void OnUnload() {
         // Always deleting the stuffs we don't need anymore
 
         mesh1.DeleteMesh();
@@ -102,8 +107,7 @@ internal class Game : GameWindow
 
         base.OnUnload();
     }
-    protected override void OnRenderFrame(FrameEventArgs args)
-    {
+    protected override void OnRenderFrame(FrameEventArgs args) {
 
         GL.ClearColor(0.6f, 0.3f, 0.75f, 1f);
         GL.Clear(ClearBufferMask.ColorBufferBit);
@@ -121,15 +125,13 @@ internal class Game : GameWindow
         base.OnRenderFrame(args);
     }
  
-    protected override void OnUpdateFrame(FrameEventArgs args)
-    {
+    protected override void OnUpdateFrame(FrameEventArgs args) {
 
         base.OnUpdateFrame(args);
     }
 }
 
-internal class GameConsole
-{
+internal class GameConsole {
     public static void WriteLine(string message)
     {
         Console.WriteLine("-> " + message);

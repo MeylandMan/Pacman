@@ -7,7 +7,11 @@ namespace PacMan.Engine;
 
 internal class Obj
 {
+    public AABB square;
+    public Obj(float mesh_width, float mesh_height) {
 
+        square = new(mesh_width, mesh_height);
+    }
 }
 
 internal class Mesh {
@@ -17,21 +21,24 @@ internal class Mesh {
     public uint[] indices;
     public float[] texCoords;
     public float[] Normals;
+    public float[] Colors;
 
     private VAO vao;
     private VBO textureVBO;
     private VBO NormalVBO;
+    private VBO ColorsVBO;
     private IBO ibo;
     private Texture texture;
     private string TexturePath;
 
-    public Mesh(float[] vertex, uint[] index, float[] texCoordinate, float[] in_Normal, string textureFilePath) {
+    public Mesh(float[] vertices, uint[] indices, float[] texCoords, float[] Normals, float[] Colors,  string TexturePath = "") {
 
-        vertices = vertex;
-        indices = index;
-        texCoords = texCoordinate;
-        TexturePath = textureFilePath;
-        Normals = in_Normal;
+        this.vertices = vertices;
+        this.indices = indices;
+        this.texCoords = texCoords;
+        this.TexturePath = TexturePath;
+        this.Normals = Normals;
+        this.Colors = Colors;
 
         setupMesh();
     }
@@ -48,9 +55,12 @@ internal class Mesh {
         vao.LinkToVAO(2, 3, NormalVBO);
         NormalVBO.UnBindVBO();
 
+        ColorsVBO = new(Colors);
+        vao.LinkToVAO(3, 4, ColorsVBO);
+        ColorsVBO.UnBindVBO();
+
         ibo = new(indices);
         ibo.UnbindIBO();
-
         texture = new(TexturePath);
     }
     public void DrawMesh(ShaderProgram program, Vector2 position, Vector2 scale, Vector2 rotation)
