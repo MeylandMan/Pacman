@@ -7,13 +7,32 @@ namespace PacMan.Engine;
 
 internal class Obj
 {
-    public AABB square;
+    public AABB mesh;
+    Vector2 position;
+    Vector2 scale;
+    Vector2 rotation;
+
     public Obj(float mesh_width, float mesh_height) {
 
-        square = new(mesh_width, mesh_height);
+        mesh = new(mesh_width, mesh_height, "DirtTexture.jpg");
     }
 }
 
+internal class Rooms {
+
+    public int ID;
+    private VAO vao;
+
+    public Rooms(int ID) {
+        this.ID = ID;
+
+    }
+    List<Obj> ObjList = new List<Obj>();
+    public void AddObject(Obj obj) {
+        ObjList.Add(obj);
+
+    }
+}
 internal class Mesh {
 
     // Graphics pipelines variables

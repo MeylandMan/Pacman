@@ -8,7 +8,7 @@ namespace PacMan.Engine;
 
 internal class AABB
 {
-    public AABB( float width, float height) {
+    public AABB( float width, float height, string texturepath = "WhiteTexture.jpg") {
         float vert_default_coords = 0.1f;
         float[] vertices = {
             -vert_default_coords, vert_default_coords, 0f, // Top Left - 0
@@ -47,6 +47,6 @@ internal class AABB
             0.5f, 0.5f, 0.5f, 1f,
             0.5f, 0.5f, 0.5f, 1f
         };
-        Mesh mesh = new(vertices, indices, texCoords, normals, Colors, "WhiteTexture.jpg");
+        Mesh mesh = new(vertices, indices, texCoords, normals, Colors, texturepath);
     }
 }

@@ -10,3 +10,14 @@ internal class Consts
 
     public static float WIDTH_ASPECT = (float)SCREEN_WIDTH/SCREEN_HEIGHT;
 }
+
+internal class enums {
+    public enum ROOM_ORDER {
+        TEMP,
+        TITLE,
+        CREDITS,
+        LEVEL1,
+        LEVEL2,
+        LEVEL3
+    }
+}
