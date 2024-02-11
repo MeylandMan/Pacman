@@ -1,6 +1,8 @@
-﻿using System;
+﻿using PacMan.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +10,12 @@ namespace PacMan.Engine;
 
 internal class AABB
 {
-    public AABB( float width, float height, string texturepath = "WhiteTexture.jpg") {
+    VAO vao;
+    public Vector2 position;
+
+    public AABB( float width, float height, VAO vao, string texturepath = "WhiteTexture.jpg") {
+        this.vao = vao;
+        
         float vert_default_coords = 0.1f;
         float[] vertices = {
             -vert_default_coords, vert_default_coords, 0f, // Top Left - 0
@@ -47,6 +54,6 @@ internal class AABB
             0.5f, 0.5f, 0.5f, 1f,
             0.5f, 0.5f, 0.5f, 1f
         };
-        Mesh mesh = new(vertices, indices, texCoords, normals, Colors, texturepath);
+        Mesh mesh = new(vertices, indices, texCoords, normals, Colors, vao, texturepath);
     }
 }

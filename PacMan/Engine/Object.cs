@@ -7,14 +7,17 @@ namespace PacMan.Engine;
 
 internal class Obj
 {
+    VAO vao;
     public AABB mesh;
     Vector2 position;
     Vector2 scale;
     Vector2 rotation;
 
-    public Obj(float mesh_width, float mesh_height) {
-
-        mesh = new(mesh_width, mesh_height, "DirtTexture.jpg");
+    public Obj(float mesh_width, float mesh_height, VAO vao, Vector2 position) {
+        this.vao = vao;
+        mesh = new(mesh_width, mesh_height, this.vao, "DirtTexture.jpg");
+        this.position = position;
+        mesh.position = new(position.X, position.Y);
     }
 }
 
@@ -22,12 +25,17 @@ internal class Rooms {
 
     public int ID;
     private VAO vao;
+    List<Obj> ObjList = new List<Obj>();
 
     public Rooms(int ID) {
         this.ID = ID;
 
+
     }
-    List<Obj> ObjList = new List<Obj>();
+    
+    public static int ChangeCurrentRoom(int ID) {
+        return ID;
+    }
     public void AddObject(Obj obj) {
         ObjList.Add(obj);
 
@@ -50,7 +58,7 @@ internal class Mesh {
     private Texture texture;
     private string TexturePath;
 
-    public Mesh(float[] vertices, uint[] indices, float[] texCoords, float[] Normals, float[] Colors,  string TexturePath = "") {
+    public Mesh(float[] vertices, uint[] indices, float[] texCoords, float[] Normals, float[] Colors, VAO vao, string TexturePath = "") {
 
         this.vertices = vertices;
         this.indices = indices;
@@ -59,23 +67,23 @@ internal class Mesh {
         this.Normals = Normals;
         this.Colors = Colors;
 
-        setupMesh();
+        setupMesh(vao);
     }
-    public void setupMesh() {
-        vao = new();
+    public void setupMesh(VAO vao) {
+        this.vao = vao;
         VBO vbo = new(vertices);
-        vao.LinkToVAO(0, 3, vbo);
+        this.vao.LinkToVAO(0, 3, vbo);
         
         textureVBO = new(texCoords);
-        vao.LinkToVAO(1, 2, textureVBO);
+        this.vao.LinkToVAO(1, 2, textureVBO);
         textureVBO.UnBindVBO();
 
         NormalVBO = new(Normals);
-        vao.LinkToVAO(2, 3, NormalVBO);
+        this.vao.LinkToVAO(2, 3, NormalVBO);
         NormalVBO.UnBindVBO();
 
         ColorsVBO = new(Colors);
-        vao.LinkToVAO(3, 4, ColorsVBO);
+        this.vao.LinkToVAO(3, 4, ColorsVBO);
         ColorsVBO.UnBindVBO();
 
         ibo = new(indices);
