@@ -5,6 +5,7 @@ using OpenTK.Windowing.Common;
 using System.Diagnostics;
 using PacMan.Graphics;
 using PacMan.Engine;
+using static PacMan.Main.enums;
 
 namespace PacMan.Main;
 
@@ -14,49 +15,13 @@ internal class Game : GameWindow
     //Frame Per second
     public double TargetUpdateFrequency = 30.0, TargetRenderFrequency = 30.0;
 
-    float[] vertices = {
-        -0.1f, 0.1f, 0f, //Top Left Vertex - 0
-        0.1f, 0.1f, 0f, //Top Right Vertex - 1
-        -0.1f, -0.1f, 0f, // Bottom Left Vertex - 2
-        0.1f, -0.1f, 0f // Bottom Right Vertex - 3
-    };
-    float[] normals = {
-        -1f, 0f, 0f,
-        1f, 0f, 0f,
-        -1f, 0f, 0f,
-        1f, 0f, 0f,
-    };
-    uint[] indices = {
-        //First triangle
-        0, 1, 2,
-
-        // Second triangle
-        1, 2, 3
-    };
-
-    float[] texCoords = {
-        0f, 1f, // Red
-        1f, 1f, // Green
-        0f, 0f, // Black
-        1f, 0f, // Yellow
-    };
-
-    float[] Colors =
-    {
-        1f, 1f, 1f, 1f,
-        1f, 1f, 1f, 1f,
-        1f, 1f, 1f, 1f,
-        1f, 1f, 1f, 1f
-    };
-
-    Mesh mesh1;
-    Mesh mesh2;
-
+    // Shader Program
     ShaderProgram program;
-
+    VAO mainSurface;
 
     int w, h, window_scale = 1; //width and height
     public Game() : base(GameWindowSettings.Default, NativeWindowSettings.Default) {
+
         Console.WriteLine("Initializing the Game Window...");
 
         //Centering this on monitor
@@ -82,25 +47,38 @@ internal class Game : GameWindow
         h = e.Height;
         GameConsole.WriteLine("Window resized : " + w + ", " + h);
     }
+    Obj ObjetctTest1;
+    Obj ObjetctTest2;
+    Rooms temp_room;
+
     protected override void OnLoad() {
 
         base.OnLoad();
+        Console.WriteLine("Setup mainsurface vao...");
+        mainSurface = new();
+        Console.WriteLine($"Setup completed ! \nvao : {mainSurface.ID}");
 
-        mesh1 = new(vertices, indices, texCoords, normals, Colors, "WhiteTexture.jpg");
-        mesh2 = new(vertices, indices, texCoords, normals, Colors, "DirtTexture.jpg");
+        Console.WriteLine("Creating Objects.");
+        ObjetctTest1 = new("Object test 1",1f, 1f, mainSurface, new Vector2(-0.2f, 0f), new Vector2(1f, 1f), new Vector2(1f, 0f));
+        Console.WriteLine($"Creating Objects completed ! \nObject : {ObjetctTest1.name}");
+        ObjetctTest2 = new("Object test 2", 1f, 1f, mainSurface, new Vector2(0.2f, 0f), new Vector2(1f, 1f), new Vector2(1f, 0f));
+        Console.WriteLine($"Creating Objects completed ! \nObject : {ObjetctTest2.name}");
+        temp_room = new((int)ROOM_ORDER.TEMP, mainSurface);
 
-        mesh1.setupMesh();
-        mesh2.setupMesh();
+        Console.WriteLine($"Adding objects to the room {temp_room.ID}");
+        temp_room.AddObject(ObjetctTest1);
+        temp_room.AddObject(ObjetctTest2);
+        Console.WriteLine($"Objects added.");
+        Console.WriteLine($"{ObjetctTest1.name} vao : {ObjetctTest1.vao.ID}");
+        Console.WriteLine($"{ObjetctTest2.name} vao : {ObjetctTest2.vao.ID}");
 
+        temp_room.setupObjMeshes();
         program = new ShaderProgram("Default.vert", "Default.frag");
 
     }
     protected override void OnUnload() {
         // Always deleting the stuffs we don't need anymore
-
-        mesh1.DeleteMesh();
-        mesh2.DeleteMesh();
-
+        temp_room.DeleteObjMeshes();
         Debug.Close();
         GameConsole.WriteLine("Debug ended.");
         Environment.Exit(0);
@@ -112,14 +90,9 @@ internal class Game : GameWindow
         GL.ClearColor(0.6f, 0.3f, 0.75f, 1f);
         GL.Clear(ClearBufferMask.ColorBufferBit);
 
-        
+
         //Draw
-        Vector2 scale = new Vector2(1f, 1f);
-        Vector2 rotation = new Vector2(1f, 0f);
-
-        mesh1.DrawMesh(program, new Vector2(-0.2f, 0f), scale, rotation);
-        mesh2.DrawMesh(program, new Vector2(0.2f, 0f), scale, rotation);
-
+        temp_room.drawObjMeshes(program);
         Context.SwapBuffers();
 
         base.OnRenderFrame(args);

@@ -12,6 +12,8 @@ internal class Consts
 }
 
 internal class enums {
+
+    public int ActualRoom = (int)ROOM_ORDER.TEMP;
     public enum ROOM_ORDER {
         TEMP,
         TITLE,

@@ -2,22 +2,30 @@
 using PacMan.Graphics;
 using PacMan.Main;
 using OpenTK.Graphics.OpenGL4;
+using static OpenTK.Graphics.OpenGL.GL;
+using System.Drawing;
+using OpenTK.Compute.OpenCL;
+using static PacMan.Main.enums;
 
 namespace PacMan.Engine;
 
 internal class Obj
 {
-    VAO vao;
-    public AABB mesh;
-    Vector2 position;
-    Vector2 scale;
-    Vector2 rotation;
+    public VAO vao;
+    public string name;
+    public AABB shape;
+    public Vector2 position;
+    public Vector2 scale;
+    public Vector2 rotation;
 
-    public Obj(float mesh_width, float mesh_height, VAO vao, Vector2 position) {
+    public Obj(string name, float mesh_width, float mesh_height, VAO vao, Vector2 position, Vector2 scale, Vector2 rotation) {
         this.vao = vao;
-        mesh = new(mesh_width, mesh_height, this.vao, "DirtTexture.jpg");
+        this.name = name;
+        this.scale = scale;
+        this.rotation = rotation;
+        shape = new(mesh_width, mesh_height, this.vao, "DirtTexture.jpg");
         this.position = position;
-        mesh.position = new(position.X, position.Y);
+        shape.position = new(position.X, position.Y);
     }
 }
 
@@ -27,18 +35,52 @@ internal class Rooms {
     private VAO vao;
     List<Obj> ObjList = new List<Obj>();
 
-    public Rooms(int ID) {
+    public Rooms(int ID, VAO vao) {
         this.ID = ID;
-
-
+        this.vao = vao;
+        Console.WriteLine($"Room ID : {ID} \nRoom Created");
     }
     
+
     public static int ChangeCurrentRoom(int ID) {
         return ID;
     }
     public void AddObject(Obj obj) {
         ObjList.Add(obj);
 
+    }
+
+    public void setupObjMeshes() {
+        GameConsole.WriteLine($"Setup Meshes for Room {ID}.");
+        foreach (Obj obj in ObjList) {
+
+            GameConsole.WriteLine($"Setup Meshes for Object {obj.name}.");
+            obj.shape.mesh.setupMesh(vao);
+            GameConsole.WriteLine($"Setup Meshes for Object {obj.name} completed !");
+            GameConsole.WriteLine($"Object mesh : {obj.shape.mesh}");
+            GameConsole.WriteLine($"Object position : {obj.position}");
+            GameConsole.WriteLine($"Object scale : {obj.scale}");
+            GameConsole.WriteLine($"Object rotation : {obj.rotation}");
+            Console.WriteLine("---------------------------------");
+
+        }
+    }
+
+    public void drawObjMeshes(ShaderProgram program) {
+        foreach (Obj obj in ObjList) {
+            obj.shape.mesh.DrawMesh(program, obj.position, obj.scale, obj.rotation);
+        }
+    }
+
+    public void DeleteObjMeshes() {
+        foreach (Obj obj in ObjList) {
+            GameConsole.WriteLine($"Deleting Meshes for Room {ID}.");
+            Console.WriteLine($"Initialzing delete process for {obj.name}");
+            obj.shape.mesh.DeleteMesh();
+            GameConsole.WriteLine($"Deleting Meshes for Object {obj.name} completed !");
+            Console.WriteLine("---------------------------------");
+        }
+        ObjList.Clear();
     }
 }
 internal class Mesh {
@@ -58,7 +100,7 @@ internal class Mesh {
     private Texture texture;
     private string TexturePath;
 
-    public Mesh(float[] vertices, uint[] indices, float[] texCoords, float[] Normals, float[] Colors, VAO vao, string TexturePath = "") {
+    public Mesh(float[] vertices, uint[] indices, float[] texCoords, float[] Normals, float[] Colors, VAO vao, string TexturePath = "WhiteTexture.jpg") {
 
         this.vertices = vertices;
         this.indices = indices;
