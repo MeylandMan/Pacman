@@ -5,7 +5,8 @@ using OpenTK.Windowing.Common;
 using System.Diagnostics;
 using PacMan.Graphics;
 using PacMan.Engine;
-using static PacMan.Main.enums;
+using static PacMan.Main.enums
+using static PacMan.Main.Program;
 
 namespace PacMan.Main;
 
@@ -49,8 +50,6 @@ internal class Game : GameWindow
     }
     Obj ObjetctTest1;
     Obj ObjetctTest2;
-    Rooms temp_room;
-
     protected override void OnLoad() {
 
         base.OnLoad();
@@ -58,21 +57,7 @@ internal class Game : GameWindow
         mainSurface = new();
         Console.WriteLine($"Setup completed ! \nvao : {mainSurface.ID}");
 
-        Console.WriteLine("Creating Objects.");
-        ObjetctTest1 = new("Object test 1",1f, 1f, mainSurface, new Vector2(-0.2f, 0f), new Vector2(1f, 1f), new Vector2(1f, 0f));
-        Console.WriteLine($"Creating Objects completed ! \nObject : {ObjetctTest1.name}");
-        ObjetctTest2 = new("Object test 2", 1f, 1f, mainSurface, new Vector2(0.2f, 0f), new Vector2(1f, 1f), new Vector2(1f, 0f));
-        Console.WriteLine($"Creating Objects completed ! \nObject : {ObjetctTest2.name}");
-        temp_room = new((int)ROOM_ORDER.TEMP, mainSurface);
-
-        Console.WriteLine($"Adding objects to the room {temp_room.ID}");
-        temp_room.AddObject(ObjetctTest1);
-        temp_room.AddObject(ObjetctTest2);
-        Console.WriteLine($"Objects added.");
-        Console.WriteLine($"{ObjetctTest1.name} vao : {ObjetctTest1.vao.ID}");
-        Console.WriteLine($"{ObjetctTest2.name} vao : {ObjetctTest2.vao.ID}");
-
-        temp_room.setupObjMeshes();
+        temp_room.setupObjMeshes(mainSurface);
         program = new ShaderProgram("Default.vert", "Default.frag");
 
     }

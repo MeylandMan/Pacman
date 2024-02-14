@@ -1,59 +1,66 @@
 ﻿using OpenTK.Mathematics;
 using PacMan.Graphics;
 using PacMan.Main;
+using static PacMan.Main.Program;
 using OpenTK.Graphics.OpenGL4;
-using static OpenTK.Graphics.OpenGL.GL;
-using System.Drawing;
-using OpenTK.Compute.OpenCL;
-using static PacMan.Main.enums;
 
 namespace PacMan.Engine;
 
 internal class Obj
 {
-    public VAO vao;
-    public string name;
+    // Mesh Variables
     public AABB shape;
+    public float mesh_width;
+    public float mesh_height;
+
+    // Objects variables
+    public string name;
     public Vector2 position;
     public Vector2 scale;
     public Vector2 rotation;
 
-    public Obj(string name, float mesh_width, float mesh_height, VAO vao, Vector2 position, Vector2 scale, Vector2 rotation) {
-        this.vao = vao;
+    public Obj(string name, Vector2 position, Vector2 scale, Vector2 rotation, float mesh_width, float mesh_height) {
         this.name = name;
         this.scale = scale;
         this.rotation = rotation;
-        shape = new(mesh_width, mesh_height, this.vao, "DirtTexture.jpg");
         this.position = position;
+        this.mesh_width = mesh_width;
+        this.mesh_height = mesh_height;
+    }
+
+    // Set a VAO and ad the mesh
+    public void SetBuffers(VAO vao, float mesh_width, float mesh_height) {
+        shape = new(mesh_width, mesh_height, vao, "DirtTexture.jpg");
         shape.position = new(position.X, position.Y);
     }
 }
 
-internal class Rooms {
+internal class Room {
 
     public int ID;
     private VAO vao;
     List<Obj> ObjList = new List<Obj>();
 
-    public Rooms(int ID, VAO vao) {
+    public Room(int ID) {
         this.ID = ID;
-        this.vao = vao;
         Console.WriteLine($"Room ID : {ID} \nRoom Created");
     }
     
 
-    public static int ChangeCurrentRoom(int ID) {
-        return ID;
+    public static void ChangeCurrentRoom(int ID) {
+        ActualRoom = ID;
     }
     public void AddObject(Obj obj) {
         ObjList.Add(obj);
 
     }
 
-    public void setupObjMeshes() {
+    public void setupObjMeshes(VAO vao) {
         GameConsole.WriteLine($"Setup Meshes for Room {ID}.");
+        this.vao = vao;
         foreach (Obj obj in ObjList) {
 
+            obj.SetBuffers(vao, obj.mesh_width, obj.mesh_height);
             GameConsole.WriteLine($"Setup Meshes for Object {obj.name}.");
             obj.shape.mesh.setupMesh(vao);
             GameConsole.WriteLine($"Setup Meshes for Object {obj.name} completed !");
