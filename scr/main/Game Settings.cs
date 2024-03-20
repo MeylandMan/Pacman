@@ -61,7 +61,10 @@ internal class Game : GameWindow
         Console.WriteLine($"Setup completed ! \nvao : {mainSurface.ID}");
         rooms[(int)ROOM_ORDER.TEMP].AddObject(objectTest1);
         rooms[(int)ROOM_ORDER.TEMP].AddObject(objectTest2);
-
+		
+		rooms[(int)ROOM_ORDER.TITLE].AddObject(objectTest1);
+		
+		rooms[(int)ROOM_ORDER.CREDITS].AddObject(objectTest2);
         rooms[ActualRoom].setupObjMeshes(mainSurface);
 
         program = new ShaderProgram("Default.vert", "Default.frag");
@@ -95,7 +98,7 @@ internal class Game : GameWindow
         KeyboardState input = KeyboardState;
         if(input.IsKeyPressed(Keys.E)) {
             Console.WriteLine($"Actual room before : {ActualRoom}");
-            if (ActualRoom == rooms.Count)
+            if (ActualRoom == rooms.Count-1)
                 ActualRoom = 0;
             else ActualRoom++;
             Console.WriteLine($"Actual room after : {ActualRoom}");
