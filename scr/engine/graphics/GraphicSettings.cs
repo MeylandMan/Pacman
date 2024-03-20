@@ -83,7 +83,7 @@ internal class Texture
 
         //Load The Image
         StbImage.stbi_set_flip_vertically_on_load(1);
-        ImageResult texture2D = ImageResult.FromStream(File.OpenRead("../../../Media/Textures/" + filePath), ColorComponents.RedGreenBlueAlpha);
+        ImageResult texture2D = ImageResult.FromStream(File.OpenRead("ressources/textures/" + filePath), ColorComponents.RedGreenBlueAlpha);
 
         GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, texture2D.Width, texture2D.Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, texture2D.Data);
 
@@ -136,11 +136,22 @@ internal class ShaderProgram
     public static string LoadShaderSource(string filePath)
     {
         string shaderSource = "";
+        string shader_name = "";
+
+        for(var i = 0; i < filePath.Length; i++) {
+            
+            if (filePath[i] != '.') {
+                shader_name += filePath[i];
+            } else {
+                i = filePath.Length;
+                shader_name += "/";
+            }
+        }
 
         try
         {
 
-            using (StreamReader reader = new StreamReader("../../../Graphics/Shaders/" + filePath))
+            using (StreamReader reader = new StreamReader("shaders/" + shader_name + filePath))
             {
                 shaderSource = reader.ReadToEnd();
             }

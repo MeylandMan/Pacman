@@ -5,6 +5,7 @@ using OpenTK.Windowing.Common;
 using System.Diagnostics;
 using PacMan.Graphics;
 using PacMan.Engine;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using static PacMan.Main.enums;
 using static PacMan.Main.Program;
 
@@ -48,22 +49,29 @@ internal class Game : GameWindow
         h = e.Height;
         GameConsole.WriteLine("Window resized : " + w + ", " + h);
     }
-    Obj ObjetctTest1;
-    Obj ObjetctTest2;
+
+    Obj objectTest1 = new("objectTest1", new Vector2(-0.2f, 0f), new Vector2(1f, 1f), new Vector2(0f, 0f), 1f, 1f);
+    Obj objectTest2 = new("objectTest2", new Vector2(0.2f, 0f), new Vector2(1f, 1f), new Vector2(0f, 0f), 1f, 1f);
+
     protected override void OnLoad() {
 
         base.OnLoad();
         Console.WriteLine("Setup mainsurface vao...");
         mainSurface = new();
         Console.WriteLine($"Setup completed ! \nvao : {mainSurface.ID}");
+        rooms[(int)ROOM_ORDER.TEMP].AddObject(objectTest1);
+        rooms[(int)ROOM_ORDER.TEMP].AddObject(objectTest2);
 
-        temp_room.setupObjMeshes(mainSurface);
+        rooms[ActualRoom].setupObjMeshes(mainSurface);
+
         program = new ShaderProgram("Default.vert", "Default.frag");
 
     }
     protected override void OnUnload() {
         // Always deleting the stuffs we don't need anymore
-        temp_room.DeleteObjMeshes();
+        foreach(Room rm in rooms) {
+            rm.DeleteObjMeshes();
+        }
         Debug.Close();
         GameConsole.WriteLine("Debug ended.");
         Environment.Exit(0);
@@ -77,26 +85,34 @@ internal class Game : GameWindow
 
 
         //Draw
-        temp_room.drawObjMeshes(program);
+        rooms[ActualRoom].drawObjMeshes(program);
         Context.SwapBuffers();
 
         base.OnRenderFrame(args);
     }
- 
-    protected override void OnUpdateFrame(FrameEventArgs args) {
 
+    protected override void OnUpdateFrame(FrameEventArgs args) {
+        KeyboardState input = KeyboardState;
+        if(input.IsKeyPressed(Keys.E)) {
+            Console.WriteLine($"Actual room before : {ActualRoom}");
+            if (ActualRoom == rooms.Count)
+                ActualRoom = 0;
+            else ActualRoom++;
+            Console.WriteLine($"Actual room after : {ActualRoom}");
+            rooms[ActualRoom].setupObjMeshes(mainSurface);
+        }
         base.OnUpdateFrame(args);
     }
 }
 
 internal class GameConsole {
-    public static void WriteLine(string message)
-    {
+    public static void WriteLine(string message) {
+
         Console.WriteLine("-> " + message);
     }
 
-    public static void Beep()
-    {
+    public static void Beep() {
+
         Console.Beep();
     }
 }
